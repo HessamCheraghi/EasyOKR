@@ -2,7 +2,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Title } from "./Title";
-import { NewGoal } from "./NewGoal";
+import { FirstGoalTooltip } from "./FirstGoalTooltip";
 import { GoalList } from "./GoalList";
 
 export function MobileMenu() {
@@ -17,7 +17,7 @@ export function MobileMenu() {
       <SheetContent side="left" className="flex flex-col">
         <Title />
         <GoalList />
-        <NewGoal />
+        <FirstGoalTooltip />
       </SheetContent>
     </Sheet>
   );

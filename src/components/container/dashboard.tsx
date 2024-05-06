@@ -1,4 +1,4 @@
-import { NewGoal } from "./NewGoal";
+import { FirstGoalTooltip } from "./FirstGoalTooltip";
 import { GoalList } from "./GoalList";
 import { Title } from "./Title";
 import { MobileMenu } from "./MobileMenu";
@@ -13,7 +13,7 @@ export function Dashboard() {
         <div className="flex h-full max-h-screen flex-col gap-2">
           <Title />
           <GoalList />
-          <NewGoal />
+          <FirstGoalTooltip />
         </div>
       </div>
       <div className="flex flex-col">
