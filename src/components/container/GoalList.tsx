@@ -1,14 +1,14 @@
 import {
-  useGoalStore,
   setSelectedGoal,
-  useCurrentGoal,
+  useSelectedGoal,
+  useGoals,
 } from "@/context/goalStore";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { NewGoal } from "./NewGoal";
 
 export function GoalList() {
-  const goals = useGoalStore((state) => state.goals);
-  const currentGoals = useCurrentGoal();
+  const goals = useGoals();
+  const currentGoals = useSelectedGoal();
 
   return (
     <div className="flex-1">
