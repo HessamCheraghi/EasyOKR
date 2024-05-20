@@ -1,6 +1,5 @@
 import { produce } from "immer";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 export type Objective = {
   id: string;
@@ -24,9 +23,7 @@ const initialGoalStore = () => ({
   selectedGoalId: "",
 });
 
-export const useGoalStore = create(
-  persist<GoalState>(initialGoalStore, { name: "app-goals" }),
-);
+export const useGoalStore = create<GoalState>(initialGoalStore);
 
 export const useGoals = () => {
   return useGoalStore((state) => state.goals);
