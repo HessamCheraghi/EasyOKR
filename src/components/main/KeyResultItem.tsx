@@ -6,12 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "../ui/button";
-import {
-  useSelectedGoal,
-  updateObjective,
-  Objective,
-} from "@/context/goalStore";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -21,27 +16,28 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { KeyResult, updateKeyResult } from "@/context/keyResultStore";
 
-interface ObjectiveProps {
-  objective: Objective;
+interface KeyResultProps {
+  keyResult: KeyResult;
 }
 
-export function ObjectiveItem({ objective }: ObjectiveProps) {
+export function KeyResultItem({ keyResult }: KeyResultProps) {
   return (
     <div className="flex-[0_0_100%] p-2 md:flex-[0_0_50%] xl:flex-[0_0_33.3%] 2xl:flex-[0_0_25%]">
       <Card className="rounded">
         <CardHeader>
-          <CardTitle>{objective.label}</CardTitle>
+          <CardTitle>{keyResult.label}</CardTitle>
           <CardDescription>
-            {objective.percentage.toFixed(0)}% completed.
+            {keyResult.percentage.toFixed(0)}% completed.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <EditObjectiveDialog
-            objective={objective}
-            key={objective.label + objective.percentage}
+          <EditKeyResultDialog
+            keyResult={keyResult}
+            key={keyResult.label + keyResult.percentage}
           />
         </CardContent>
       </Card>
@@ -49,37 +45,32 @@ export function ObjectiveItem({ objective }: ObjectiveProps) {
   );
 }
 
-interface EditObjectiveDialogProps {
-  objective: Objective;
+interface EditKeyResultDialogProps {
+  keyResult: KeyResult;
 }
 
-export function EditObjectiveDialog({ objective }: EditObjectiveDialogProps) {
-  const currentGoal = useSelectedGoal();
+function EditKeyResultDialog({ keyResult }: EditKeyResultDialogProps) {
   const uniqueId = React.useId();
   const [open, setOpen] = React.useState(false);
-  const [label, setLabel] = React.useState(objective.label);
-  const [percentage, setPercentage] = React.useState(objective.percentage);
-  const handleSubmit = React.useCallback(
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-      event.preventDefault();
-      updateObjective(currentGoal?.id, {
-        id: objective.id,
-        label,
-        percentage,
-      });
+  const [label, setLabel] = React.useState(keyResult.label);
+  const [percentage, setPercentage] = React.useState(keyResult.percentage);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    updateKeyResult({
+      ...keyResult,
+      label,
+      percentage,
+    });
 
-      setLabel("");
-      setOpen(false);
-    },
-    [currentGoal?.id, label, objective.id, percentage],
-  );
+    setLabel("");
+    setOpen(false);
+  };
 
-  if (!currentGoal) return null;
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" className="mb-2">
-          Edit Objective
+          Edit Key Result
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -87,17 +78,17 @@ export function EditObjectiveDialog({ objective }: EditObjectiveDialogProps) {
           <DialogHeader>
             <DialogTitle>Edit Objective</DialogTitle>
             <DialogDescription>
-              You can modify your objectives here. change the name or the
-              percentage of the current objective.
+              You can modify your key results here. change the name or the
+              percentage of the current key result.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor={"objective" + uniqueId} className="text-left">
-                Objective
+              <Label htmlFor={"key result" + uniqueId} className="text-left">
+                Key Result
               </Label>
               <Input
-                id={"objective" + uniqueId}
+                id={"key result" + uniqueId}
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
                 className="col-span-3"

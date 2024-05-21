@@ -1,11 +1,11 @@
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Title } from "./Title";
-import { FirstGoalTooltip } from "./FirstGoalTooltip";
-import { GoalList } from "./GoalList";
+import Title from "./Title";
+import FirstObjectiveTooltip from "./FirstObjectiveTooltip";
+import ObjectiveList from "./ObjectiveList";
 
-export function MobileMenu() {
+export default function MobileMenu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -16,8 +16,8 @@ export function MobileMenu() {
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col">
         <Title />
-        <GoalList />
-        <FirstGoalTooltip />
+        <ObjectiveList />
+        <FirstObjectiveTooltip />
       </SheetContent>
     </Sheet>
   );

@@ -1,19 +1,19 @@
-import { FirstGoalTooltip } from "./FirstGoalTooltip";
-import { GoalList } from "./GoalList";
-import { Title } from "./Title";
-import { MobileMenu } from "./MobileMenu";
-import { SearchBar } from "./SearchBar";
-import { Main } from "./Main";
-import { ModeToggle } from "../ui/mode-toggle";
+import Title from "./dashboard/Title";
+import ObjectiveList from "./dashboard/ObjectiveList";
+import FirstObjectiveTooltip from "./dashboard/FirstObjectiveTooltip";
+import MobileMenu from "./dashboard/MobileMenu";
+import SearchBar from "./dashboard/SearchBar";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import Main from "./Main";
 
-export function Dashboard() {
+export default function Dashboard() {
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <Title />
-          <GoalList />
-          <FirstGoalTooltip />
+          <ObjectiveList />
+          <FirstObjectiveTooltip />
         </div>
       </div>
       <div className="flex flex-col">
