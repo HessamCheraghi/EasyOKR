@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { produce } from "immer";
 
 type Objective = {
@@ -10,7 +11,9 @@ type ObjectiveStore = { allObjectives: Objective[]; selected: string };
 
 const initialObjectiveStore = () => ({ allObjectives: [], selected: "" });
 
-const useObjectiveStore = create<ObjectiveStore>(initialObjectiveStore);
+const useObjectiveStore = create(
+  persist<ObjectiveStore>(initialObjectiveStore, { name: "objective-store" }),
+);
 
 export const useObjectives = () =>
   useObjectiveStore((state) => state.allObjectives);

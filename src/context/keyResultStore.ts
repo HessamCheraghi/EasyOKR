@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { produce } from "immer";
 import { getSelectedObjective } from "./objectiveStore";
 
@@ -19,7 +20,9 @@ const initialKeyResultStore = () => ({
   allKeyResults: [],
 });
 
-const useKeyResultStore = create<KeyResultStore>(initialKeyResultStore);
+const useKeyResultStore = create(
+  persist<KeyResultStore>(initialKeyResultStore, { name: "key-result-store" }),
+);
 
 export const useKeyResults = () => {
   const parentObjectiveId = getSelectedObjective();
