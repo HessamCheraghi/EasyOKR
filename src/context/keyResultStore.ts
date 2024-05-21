@@ -5,7 +5,12 @@ import { getSelectedObjective } from "./objectiveStore";
 export type KeyResult = {
   id: string;
   label: string;
-  percentage: number;
+  type: "todo" | "metric";
+  base: number;
+  target: number;
+  currentValue: number;
+  keyAction: string[];
+  owner: string;
   parentObjectiveId: string;
 };
 

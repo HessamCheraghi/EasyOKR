@@ -12,6 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addKeyResult } from "@/context/keyResultStore";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import KeyActionInput from "./KeyActionInput";
+import { sanitizeNewKeyResult } from "@/lib/sanitizeNewKeyResult";
 
 interface NewKeyResultProps {
   open: boolean;
@@ -20,16 +23,36 @@ interface NewKeyResultProps {
 
 export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
   const uniqueId = React.useId();
-  const [keyResult, setKeyResult] = React.useState("");
+
+  // Todo: fix this mess ...
+  const [label, setLabel] = React.useState("");
+  const [type, setType] = React.useState<"todo" | "metric">("todo");
+  const [base, setBase] = React.useState(0);
+  const [target, setTarget] = React.useState(100);
+  const [keyAction, setKeyAction] = React.useState<string[]>([]);
+  const [owner, setOwner] = React.useState("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addKeyResult({
-      id: uuid(),
-      label: keyResult,
-      percentage: 0,
-    });
+    addKeyResult(
+      sanitizeNewKeyResult({
+        id: uuid(),
+        label,
+        type,
+        base,
+        target,
+        currentValue: base,
+        keyAction,
+        owner,
+      }),
+    );
 
-    setKeyResult("");
+    setLabel("");
+    setType("todo");
+    setBase(0);
+    setTarget(100);
+    setKeyAction([]);
+    setOwner("");
     setOpen(false);
   };
   return (
@@ -45,14 +68,92 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor={"keyResult" + uniqueId} className="text-left">
-                Objective
+              <Label htmlFor={"label" + uniqueId} className="text-left">
+                Key Result
               </Label>
               <Input
-                id={"keyResult" + uniqueId}
-                value={keyResult}
-                onChange={(e) => setKeyResult(e.target.value)}
+                id={"label" + uniqueId}
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
                 className="col-span-3"
+                required
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor={"keyResult" + uniqueId} className="text-left">
+                Type
+              </Label>
+              <RadioGroup defaultValue="comfortable">
+                <div className="flex items-center space-x-1">
+                  <RadioGroupItem
+                    value="todo"
+                    id={"todo" + uniqueId}
+                    onClick={() => setType("todo")}
+                    checked={type === "todo"}
+                    required
+                  />
+                  <Label htmlFor={"todo" + uniqueId}>Todo</Label>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <RadioGroupItem
+                    value="metric"
+                    id={"metric" + uniqueId}
+                    onClick={() => setType("metric")}
+                    checked={type === "metric"}
+                    required
+                  />
+                  <Label htmlFor={"metric" + uniqueId}>Metric</Label>
+                </div>
+              </RadioGroup>
+            </div>
+            {type === "metric" && (
+              <>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor={"base" + uniqueId} className="text-left">
+                    Base
+                  </Label>
+                  <Input
+                    id={"base" + uniqueId}
+                    value={base}
+                    onChange={(e) =>
+                      setBase(Number.parseInt(e.target.value || "0"))
+                    }
+                    className="col-span-3"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor={"target" + uniqueId} className="text-left">
+                    Target
+                  </Label>
+                  <Input
+                    id={"target" + uniqueId}
+                    value={target}
+                    onChange={(e) =>
+                      setTarget(Number.parseInt(e.target.value || "0"))
+                    }
+                    className="col-span-3"
+                    required
+                  />
+                </div>
+              </>
+            )}
+            <div className="grid grid-cols-4 items-center gap-4">
+              <KeyActionInput
+                keyAction={keyAction}
+                setKeyAction={setKeyAction}
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor={"owner" + uniqueId} className="text-left">
+                Owner
+              </Label>
+              <Input
+                id={"owner" + uniqueId}
+                value={owner}
+                onChange={(e) => setOwner(e.target.value)}
+                className="col-span-3"
+                required
               />
             </div>
           </div>
