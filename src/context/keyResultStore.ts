@@ -10,7 +10,6 @@ export type KeyResult = {
   base: number;
   target: number;
   currentValue: number;
-  keyAction: string[];
   owner: string;
   parentObjectiveId: string;
 };

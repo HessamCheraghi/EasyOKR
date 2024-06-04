@@ -32,6 +32,7 @@ export default function EditKeyResultDialog({
     keyResult.currentValue,
   );
   const [owner, setOwner] = React.useState(keyResult.owner);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateKeyResult({
@@ -46,8 +47,22 @@ export default function EditKeyResultDialog({
     setOpen(false);
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      updateKeyResult({
+        ...keyResult,
+        label,
+        base,
+        target,
+        currentValue,
+        owner,
+      });
+    }
+    setOpen(open);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button variant="default" className="mb-2">
           Update Key Result

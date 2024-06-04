@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addKeyResult } from "@/context/keyResultStore";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import KeyActionInput from "./KeyActionInput";
 import { sanitizeNewKeyResult } from "@/lib/sanitizeNewKeyResult";
 
 interface NewKeyResultProps {
@@ -29,7 +28,6 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
   const [type, setType] = React.useState<"todo" | "metric">("todo");
   const [base, setBase] = React.useState(0);
   const [target, setTarget] = React.useState(100);
-  const [keyAction, setKeyAction] = React.useState<string[]>([]);
   const [owner, setOwner] = React.useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,7 +40,6 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
         base,
         target,
         currentValue: base,
-        keyAction,
         owner,
       }),
     );
@@ -51,7 +48,6 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
     setType("todo");
     setBase(0);
     setTarget(100);
-    setKeyAction([]);
     setOwner("");
     setOpen(false);
   };
@@ -138,12 +134,7 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
                 </div>
               </>
             )}
-            <div className="grid grid-cols-4 items-center gap-4">
-              <KeyActionInput
-                keyAction={keyAction}
-                setKeyAction={setKeyAction}
-              />
-            </div>
+
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor={"owner" + uniqueId} className="text-left">
                 Owner
