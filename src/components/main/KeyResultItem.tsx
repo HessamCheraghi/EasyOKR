@@ -8,6 +8,7 @@ import {
 import { KeyResult } from "@/context/keyResultStore";
 import { calculatePercentage } from "@/lib/calculatePercentage";
 import EditKeyResultDialog from "./EditKeyResultDialog";
+import PunchInKeyResultDialog from "./PunchInKeyResultDialog";
 
 interface KeyResultProps {
   keyResult: KeyResult;
@@ -55,20 +56,21 @@ export function KeyResultItem({ keyResult }: KeyResultProps) {
                 </div>
               </>
             )}
-            {!!keyResult.keyAction.length && (
-              <div className="flex gap-2">
-                <p className="font-medium">Key Actions:</p>
-                <p className="">{keyResult.keyAction.join(", ")}</p>
-              </div>
-            )}
             <div className="flex gap-2">
               <p className="font-medium">Owner:</p>
               <p className="">{keyResult.owner}</p>
             </div>
           </div>
         </CardContent>
-        <CardFooter>
-          <EditKeyResultDialog keyResult={keyResult} key={keyResult.id} />
+        <CardFooter className="flex items-center justify-start gap-4">
+          <PunchInKeyResultDialog
+            keyResult={keyResult}
+            key={keyResult.id + "punch-in"}
+          />
+          <EditKeyResultDialog
+            keyResult={keyResult}
+            key={keyResult.id + "edit"}
+          />
         </CardFooter>
       </Card>
     </div>

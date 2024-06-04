@@ -12,7 +12,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { KeyResult, updateKeyResult } from "@/context/keyResultStore";
-import { Checkbox } from "@/components/ui/checkbox";
 
 interface EditKeyResultDialogProps {
   keyResult: KeyResult;
@@ -28,9 +27,6 @@ export default function EditKeyResultDialog({
   const [label, setLabel] = React.useState(keyResult.label);
   const [base, setBase] = React.useState(keyResult.base);
   const [target, setTarget] = React.useState(keyResult.target);
-  const [currentValue, setCurrentValue] = React.useState(
-    keyResult.currentValue,
-  );
   const [owner, setOwner] = React.useState(keyResult.owner);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,7 +36,6 @@ export default function EditKeyResultDialog({
       label,
       base,
       target,
-      currentValue,
       owner,
     });
 
@@ -54,7 +49,6 @@ export default function EditKeyResultDialog({
         label,
         base,
         target,
-        currentValue,
         owner,
       });
     }
@@ -64,8 +58,8 @@ export default function EditKeyResultDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="default" className="mb-2">
-          Update Key Result
+        <Button variant="secondary" className="mb-2">
+          Edit
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -124,23 +118,6 @@ export default function EditKeyResultDialog({
                     required
                   />
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label
-                    htmlFor={"edit-current-value" + uniqueId}
-                    className="text-left"
-                  >
-                    CurrentValue
-                  </Label>
-                  <Input
-                    id={"edit-base" + uniqueId}
-                    value={currentValue}
-                    onChange={(e) =>
-                      setCurrentValue(Number.parseInt(e.target.value || "0"))
-                    }
-                    className="col-span-3"
-                    required
-                  />
-                </div>
               </>
             )}
 
@@ -156,24 +133,6 @@ export default function EditKeyResultDialog({
                 required
               />
             </div>
-
-            {keyResult.type === "todo" && (
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id={"edit-check" + uniqueId}
-                  onCheckedChange={(checked) => {
-                    setCurrentValue(checked ? 100 : 0);
-                  }}
-                  checked={currentValue >= 100}
-                />
-                <label
-                  htmlFor={"edit-check" + uniqueId}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Mark this key result as done!
-                </label>
-              </div>
-            )}
           </div>
           <DialogFooter>
             <Button type="submit">Save changes</Button>
