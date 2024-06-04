@@ -55,7 +55,7 @@ export default function PunchInKeyResultDialog({
           Punch In
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[480px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Punch In Objective</DialogTitle>

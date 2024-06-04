@@ -48,7 +48,7 @@ export default function NewObjective() {
           Add new Objective
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[480px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add a new Objective</DialogTitle>

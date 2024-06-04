@@ -38,7 +38,7 @@ export default function CompanyGoalDialog() {
           <span className="sr-only">see company goals</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
           <DialogTitle>Add a new company goal</DialogTitle>
           <DialogDescription>

@@ -53,7 +53,7 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[480px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add a new Key Result</DialogTitle>

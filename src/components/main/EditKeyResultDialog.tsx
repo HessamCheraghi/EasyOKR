@@ -12,6 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { KeyResult, updateKeyResult } from "@/context/keyResultStore";
+import KeyActions from "./KeyActions";
 
 interface EditKeyResultDialogProps {
   keyResult: KeyResult;
@@ -62,7 +63,7 @@ export default function EditKeyResultDialog({
           Edit
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[480px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Edit Objective</DialogTitle>
@@ -133,6 +134,7 @@ export default function EditKeyResultDialog({
                 required
               />
             </div>
+            <KeyActions parentKeyResultId={keyResult.id} />
           </div>
           <DialogFooter>
             <Button type="submit">Save changes</Button>
