@@ -5,6 +5,7 @@ import MobileMenu from "./dashboard/MobileMenu";
 import SearchBar from "./dashboard/SearchBar";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import Main from "./Main";
+import CompanyGoalDialog from "./dashboard/CompanyGoalDialog";
 
 export default function Dashboard() {
   return (
@@ -20,6 +21,7 @@ export default function Dashboard() {
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <MobileMenu />
           <SearchBar />
+          <CompanyGoalDialog />
           <ModeToggle />
         </header>
         <Main />

@@ -76,9 +76,9 @@ export default function NewKeyResult({ open, setOpen }: NewKeyResultProps) {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor={"keyResult" + uniqueId} className="text-left">
+              <div className="text-left text-sm font-medium leading-5 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                 Type
-              </Label>
+              </div>
               <RadioGroup defaultValue="comfortable">
                 <div className="flex items-center space-x-1">
                   <RadioGroupItem

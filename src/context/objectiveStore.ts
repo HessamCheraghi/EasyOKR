@@ -5,6 +5,7 @@ import { produce } from "immer";
 type Objective = {
   id: string;
   label: string;
+  companyGoalId: string;
 };
 
 type ObjectiveStore = { allObjectives: Objective[]; selected: string };

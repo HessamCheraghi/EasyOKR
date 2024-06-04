@@ -13,17 +13,30 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { addObjective } from "@/context/objectiveStore";
 import { v4 as uuid } from "uuid";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useCompanyGoals } from "@/context/companyGoalStore";
 
 export default function NewObjective() {
   const uniqueId = React.useId();
   const [open, setOpen] = React.useState(false);
   const [objective, setObjective] = React.useState("");
+  const [selectedGoalId, setSelectedGoalId] = React.useState("");
+
+  const companyGoals = useCompanyGoals();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addObjective({
       id: uuid(),
       label: objective,
+      companyGoalId: selectedGoalId,
     });
     setObjective("");
     setOpen(false);
@@ -54,7 +67,34 @@ export default function NewObjective() {
                 value={objective}
                 onChange={(e) => setObjective(e.target.value)}
                 className="col-span-3"
+                required
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor={"company-goal" + uniqueId} className="text-left">
+                Company Goal
+              </Label>
+              <Select
+                required
+                value={selectedGoalId}
+                onValueChange={setSelectedGoalId}
+              >
+                <SelectTrigger
+                  className="col-span-3"
+                  id={"company-goal" + uniqueId}
+                >
+                  <SelectValue placeholder="Select a Goal" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {companyGoals.map((g) => (
+                      <SelectItem key={g.id} value={g.id}>
+                        {g.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>

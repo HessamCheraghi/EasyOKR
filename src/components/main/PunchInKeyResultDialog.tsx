@@ -74,7 +74,7 @@ export default function PunchInKeyResultDialog({
                     CurrentValue
                   </Label>
                   <Input
-                    id={"edit-base" + uniqueId}
+                    id={"edit-current-value" + uniqueId}
                     value={currentValue}
                     onChange={(e) =>
                       setCurrentValue(Number.parseInt(e.target.value || "0"))
