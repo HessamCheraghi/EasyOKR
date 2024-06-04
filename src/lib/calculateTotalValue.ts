@@ -13,5 +13,5 @@ export function calculateTotalValue(keyResults: KeyResult[]) {
 
   if (isNaN(totalPercentage)) return "";
 
-  return `(${totalPercentage}%)`;
+  return `(${totalPercentage.toFixed(1)}%)`;
 }
